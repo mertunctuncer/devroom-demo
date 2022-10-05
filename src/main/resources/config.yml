@@ -5,3 +5,13 @@ sql:
   username: "root"
   password: "root"
   pool_size: 3
+
+dungeon:
+  spawnLocation:
+    world: "world"
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    yaw: 0.0
+    pitch: 0.0
+  
