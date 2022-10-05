@@ -13,5 +13,7 @@ fun Player.checkPermission(permission: Permissions) : Boolean?{
 
 fun Player.sendColorizedMessage(message: Messages) = this.sendMessage(messages.getColorized(message))
 
-
-
+fun Player.sendColorizedMessage(message: Messages, parser: (message: String) -> String) {
+	val raw = messages.getMessage(message)
+	this.sendMessage(parser.invoke(raw!!).colorize())
+}
