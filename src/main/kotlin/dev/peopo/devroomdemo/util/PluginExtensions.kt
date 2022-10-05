@@ -6,9 +6,12 @@ import org.bukkit.Bukkit
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.PluginManager
+import org.bukkit.plugin.java.JavaPlugin
 import java.util.logging.Logger
 
 val plugin : Plugin by lazy{ Bukkit.getPluginManager().getPlugin("DevroomDemo")!! }
+
+val javaPlugin: JavaPlugin by lazy { plugin as JavaPlugin }
 
 val pluginManager: PluginManager by lazy { Bukkit.getPluginManager() }
 
