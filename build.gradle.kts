@@ -23,11 +23,13 @@ val configPath: String = "$projectDir\\run\\plugins\\$pluginName\\"
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://repo.dmulloy2.net/repository/public/")
     maven("https://jitpack.io" )
 }
 
 dependencies {
     paperDevBundle("1.18.2-R0.1-SNAPSHOT")
+    compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
 
     implementation("com.github.mertunctuncer:bukkit-scope:1.0.0")
     implementation("com.github.mertunctuncer:skuerrel:1.3.0")
