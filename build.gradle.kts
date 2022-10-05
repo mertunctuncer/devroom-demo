@@ -31,6 +31,7 @@ dependencies {
 
     implementation("com.github.mertunctuncer:bukkit-scope:1.0.0")
     implementation("com.github.mertunctuncer:skuerrel:1.3.0")
+    implementation("com.github.mertunctuncer:kgui:1.0.1")
 
     implementation("com.zaxxer:HikariCP:4.0.3")
     implementation("mysql:mysql-connector-java:8.0.30")
@@ -99,5 +100,8 @@ bukkit {
     authors = listOf("Aki..#0001")
     depend = listOf()
     commands {
+        register("start")
+        register("stats")
+        register("leave")
     }
 }
