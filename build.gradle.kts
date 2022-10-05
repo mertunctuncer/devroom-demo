@@ -30,7 +30,10 @@ dependencies {
     paperDevBundle("1.18.2-R0.1-SNAPSHOT")
 
     implementation("com.github.mertunctuncer:bukkit-scope:1.0.0")
-    implementation("com.github.mertunctuncer:skuerrel:1.1.0")
+    implementation("com.github.mertunctuncer:skuerrel:1.3.0")
+
+    implementation("com.zaxxer:HikariCP:4.0.3")
+    implementation("mysql:mysql-connector-java:8.0.30")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.20")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
@@ -94,7 +97,7 @@ bukkit {
     description = project.description
     apiVersion = "1.18"
     authors = listOf("Aki..#0001")
-    depend = listOf("")
+    depend = listOf()
     commands {
     }
 }

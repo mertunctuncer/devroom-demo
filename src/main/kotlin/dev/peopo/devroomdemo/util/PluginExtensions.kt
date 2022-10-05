@@ -8,7 +8,7 @@ import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.PluginManager
 import java.util.logging.Logger
 
-val plugin : Plugin by lazy{ Bukkit.getPluginManager().getPlugin("WandererWorlds")!! }
+val plugin : Plugin by lazy{ Bukkit.getPluginManager().getPlugin("DevroomDemo")!! }
 
 val pluginManager: PluginManager by lazy { Bukkit.getPluginManager() }
 

@@ -1,5 +1,5 @@
 
-rootProject.name = "orbital-demo"
+rootProject.name = "devroom-demo"
 
 pluginManagement {
 	repositories {
