@@ -7,11 +7,7 @@ import dev.peopo.devroomdemo.util.config
 import dev.peopo.skuerrel.Table
 import kotlinx.coroutines.launch
 
-val sqlTable by lazy {
-	val table = Table(hikariCP, PlayerData::class)
-	IOScope.launch { table.create(true) }
-	table
-}
+val sqlTable by lazy { Table(hikariCP, PlayerData::class).also { IOScope.launch { it.create(true) } } }
 
 val hikariCP by lazy {
 	val host = config.getString("sql.host")
