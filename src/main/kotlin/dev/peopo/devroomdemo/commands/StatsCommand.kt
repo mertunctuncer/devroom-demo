@@ -20,7 +20,8 @@ fun onStatsCommand(player: Player) {
 		ButtonBuilder { ItemStack(Material.GOLDEN_SWORD).editor.setName("&3Kills: &f${it.getDungeonStats()!!.kills}".colorize()).item }.build()
 	)
 	statPage.setButton(5,
-		ButtonBuilder { ItemStack(Material.NETHERITE_SWORD).editor.setName("&3Kills Per Session: &f${it.getDungeonStats()!!.kills.toDouble() / it.getDungeonStats()!!.deaths}".colorize()).item }.build()
+		ButtonBuilder { ItemStack(Material.NETHERITE_SWORD).editor
+			.setName("&3Kills Per Session: &f%.1f".colorize().format(it.getDungeonStats()!!.kills.toDouble() / it.getDungeonStats()!!.deaths)).item }.build()
 	)
 	statPage.setButton(6,
 		ButtonBuilder { ItemStack(Material.IRON_DOOR).editor.setName("&3Sessions: &f${it.getDungeonStats()!!.sessions}".colorize()).item }.build()

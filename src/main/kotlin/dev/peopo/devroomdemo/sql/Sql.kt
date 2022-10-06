@@ -18,7 +18,7 @@ val hikariCP by lazy {
 	val port = config.getInt("sql.port")
 	val database = config.getString("sql.database")
 
-	com.mysql.jdbc.Driver()
+	com.mysql.cj.jdbc.Driver()
 
 	val hikariConfig = HikariConfig()
 	hikariConfig.jdbcUrl = "jdbc:mysql://$host:$port/$database"
