@@ -1,6 +1,5 @@
 package dev.peopo.devroomdemo.dungeon
 
-import dev.peopo.devroomdemo.util.config
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import java.util.*
@@ -9,14 +8,39 @@ class Dungeon(val player: Player) {
 
 	init {
 		activeInstances[player.uniqueId] = this
+
 	}
 
-	val entities = mutableSetOf <Entity>()
+	val entityInstances = mutableSetOf <Entity>()
+	val entityIds = mutableSetOf<Int>()
 
 	companion object {
-		val globalEntities = mutableSetOf<Entity>()
+		/*
+		init {
+			pluginManager.registerEvents(object: Listener {
+				@EventHandler
+					removeEntity(e.getEntity(), true)
+				}
+
+				@EventHandler
+				fun onChunkUnload(e: ChunkUnloadEvent) {
+					for (entity in e.getChunk().getEntities()) {
+						removeEntity(entity, false)
+					}
+				}
+
+				@EventHandler
+				fun onPlayerQuit(e: PlayerQuitEvent) {
+					removePlayer(e.getPlayer())
+				}
+
+			}, plugin)
+		}
+		 */
+		val globalEntities = mutableSetOf<Int>()
 		val activeInstances = mutableMapOf<UUID, Dungeon>()
 		val Player.dungeon : Dungeon?
 			get() = activeInstances[uniqueId]
 	}
 }
+
