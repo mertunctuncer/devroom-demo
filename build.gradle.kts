@@ -45,6 +45,9 @@ dependencies {
 
 tasks {
     shadowJar {
+        relocate("com.zaxxer", "dev.peopo.dependencies.com.zaxxer")
+        relocate("com.mysql", "dev.peopo.dependencies.com.mysql")
+        relocate("org.jetbrains", "dev.peopo.dependencies.org.jetbrains")
         minimize {
             exclude(dependency("org.jetbrains.kotlin:.*:.*"))
             exclude(dependency("org.jetbrains.kotlinx:.*:.*"))
