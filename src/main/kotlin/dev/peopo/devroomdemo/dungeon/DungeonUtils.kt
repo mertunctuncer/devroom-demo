@@ -4,6 +4,7 @@ import dev.peopo.devroomdemo.config.YamlConfig
 import dev.peopo.devroomdemo.util.config
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.entity.Player
 
 
 val YamlConfig.spawnLocation by lazy {
@@ -16,6 +17,8 @@ val YamlConfig.spawnLocation by lazy {
 		config.getDouble("dungeon.spawnLocation.pitch").toFloat()
 	)
 }
+
+fun Dungeon.Companion.isVisible(id: Int, player: Player) : Boolean = activeInstances[player.uniqueId]?.entityIds?.contains(id) == true
 
 
 
