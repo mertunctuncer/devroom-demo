@@ -2,18 +2,12 @@ package dev.peopo.devroomdemo.packet
 
 import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.ProtocolLibrary
+import com.comphenix.protocol.ProtocolManager
 import com.comphenix.protocol.events.PacketAdapter
 import com.comphenix.protocol.events.PacketEvent
-import com.comphenix.protocol.events.PacketListener
-import dev.peopo.devroomdemo.dungeon.Dungeon.Companion.dungeon
+import dev.peopo.devroomdemo.dungeon.Dungeon
+import dev.peopo.devroomdemo.dungeon.isVisible
 import dev.peopo.devroomdemo.util.plugin
-import dev.peopo.devroomdemo.util.pluginManager
-import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
-import org.bukkit.event.entity.EntityDeathEvent
-import org.bukkit.event.player.PlayerQuitEvent
-import org.bukkit.event.world.ChunkUnloadEvent
-
 
 private val ENTITY_PACKETS = arrayOf(
 	PacketType.Play.Server.ENTITY_EQUIPMENT,
@@ -38,34 +32,16 @@ private val ENTITY_PACKETS = arrayOf(
 	PacketType.Play.Server.BLOCK_BREAK_ANIMATION // ANYTHING ELSE?
 )
 
-val protocolManager = ProtocolLibrary.getProtocolManager().also {
-	it.addPacketListener(object: PacketAdapter(plugin, ENTITY_PACKETS.asIterable()) {
-		override fun onPacketSending(event: PacketEvent) {
-			val entityID: Int = event.getPacket().getIntegers().read(0)
+val protocolManager : ProtocolManager by lazy { ProtocolLibrary.getProtocolManager() }
 
-			if (!isVisible(event.getPlayer(), entityID)) {
-				event.setCancelled(true)
+fun registerPacketListeners() {
+	protocolManager.addPacketListener(object : PacketAdapter(plugin, ENTITY_PACKETS.asIterable()) {
+		override fun onPacketSending(event: PacketEvent) {
+			val entityID: Int = event.packet.integers.read(0)
+
+			if (!Dungeon.isVisible(entityID, event.player)) {
+				event.isCancelled = true
 			}
 		}
 	})
 }
-
-pluginManager.registerEvents(object: Listener {
-	@EventHandler
-	fun onEntityDeath(e: EntityDeathEvent) {
-		removeEntity(e.getEntity(), true)
-	}
-
-	@EventHandler
-	fun onChunkUnload(e: ChunkUnloadEvent) {
-		for (entity in e.getChunk().getEntities()) {
-			removeEntity(entity, false)
-		}
-	}
-
-	@EventHandler
-	fun onPlayerQuit(e: PlayerQuitEvent) {
-		removePlayer(e.getPlayer())
-	}
-
-}, plugin);
