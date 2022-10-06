@@ -18,7 +18,10 @@ val YamlConfig.spawnLocation by lazy {
 	)
 }
 
-fun Dungeon.Companion.isVisible(id: Int, player: Player) : Boolean = activeInstances[player.uniqueId]?.entityIds?.contains(id) == true
+fun Dungeon.Companion.isVisible(id: Int, player: Player) : Boolean {
+	if(!dungeonEntities.contains(id)) return true
+	return activeInstances[player.uniqueId]?.entityIds?.contains(id) == true
+}
 
 
 
