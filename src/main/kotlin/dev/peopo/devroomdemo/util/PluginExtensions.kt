@@ -1,6 +1,5 @@
 package dev.peopo.devroomdemo.util
 
-import dev.peopo.devroomdemo.config.MessageConfig
 import dev.peopo.devroomdemo.config.YamlConfig
 import org.bukkit.Bukkit
 import org.bukkit.configuration.file.YamlConfiguration
@@ -16,8 +15,6 @@ val javaPlugin: JavaPlugin by lazy { plugin as JavaPlugin }
 val pluginManager: PluginManager by lazy { Bukkit.getPluginManager() }
 
 val config: YamlConfig by lazy { YamlConfig(plugin, "config.yml") }
-
-val messages: MessageConfig by lazy { MessageConfig(plugin, "messages.yml") }
 
 val logger: Logger by lazy { plugin.logger }
 
