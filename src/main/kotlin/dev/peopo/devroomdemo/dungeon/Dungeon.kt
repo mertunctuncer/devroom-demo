@@ -22,26 +22,33 @@ import java.util.*
 
 class Dungeon(val player: Player) {
 
-	init {
-		activeInstances[player.uniqueId] = this
-		player.getDungeonStats()!!.sessions += 1
-		player.teleport(config.spawnLocation)
-	}
-
-	val spawnTask = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
-		val customZombie = DungeonZombie(player)
+	private val spawnTask = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
+		val customZombie = try {
+			DungeonZombie(player)
+		} catch (e: NoValidPositionException) {
+			player.sendMessage("Could not spawn enemies!")
+			return@Runnable
+		}
 		customZombie.setTarget((player as CraftPlayer).handle, EntityTargetEvent.TargetReason.CUSTOM, true)
-	}, 20*5, 20)
+	}, 20 * 5, 20)
 
 	val entityIds = mutableSetOf<Int>()
 	val entityInstances = mutableSetOf<Entity>()
 
+	init {
+		player.getDungeonStats()!!.sessions += 1
+		player.teleport(config.spawnLocation)
+		hidePlayers(player)
+		activeInstances[player.uniqueId] = this
+	}
+
 	fun clear() {
-		for(entity in entityInstances) {
+		for (entity in entityInstances) {
 			entity.remove(Entity.RemovalReason.DISCARDED)
 			dungeonEntities.remove(entity.id)
 		}
 		activeInstances.remove(player.uniqueId)
+		showPlayers(player)
 		spawnTask.cancel()
 		player.getCache()?.apply()
 		player.removeCache()
@@ -57,20 +64,20 @@ class Dungeon(val player: Player) {
 	}
 
 	companion object : Listener {
-		init { pluginManager.registerEvents(this, plugin) }
+		init {
+			pluginManager.registerEvents(this, plugin)
+		}
 
 		val dungeonEntities = mutableSetOf<Int>()
 		val activeInstances = mutableMapOf<UUID, Dungeon>()
-		val Player.dungeon : Dungeon?
-			get() = activeInstances[uniqueId]
 
 		@EventHandler
 		fun onPlayerDamage(event: EntityDamageEvent) {
-			if(event.entity !is Player) return
+			if (event.entity !is Player) return
 			val player = event.entity as Player
 			val dungeon = player.dungeon ?: return
 
-			if((player.health - event.finalDamage) <= 0) {
+			if ((player.health - event.finalDamage) <= 0) {
 				event.isCancelled = true
 				player.getDungeonStats()!!.deaths += 1
 				player.sendMessage("You died!")

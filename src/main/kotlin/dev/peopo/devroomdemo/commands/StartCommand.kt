@@ -9,7 +9,9 @@ import org.bukkit.entity.Player
 
 fun onStartCommand(player: Player) {
 
-	if(Dungeon.activeInstances.containsKey(player.uniqueId)) { player.sendMessage("&cAlready in a dungeon!".colorize()); return }
+	if (Dungeon.activeInstances.containsKey(player.uniqueId)) {
+		player.sendMessage("&cAlready in a dungeon!".colorize()); return
+	}
 
 	player.sendMessage("Starting the dungeon!")
 	val cache = PreDungeonCache(player)

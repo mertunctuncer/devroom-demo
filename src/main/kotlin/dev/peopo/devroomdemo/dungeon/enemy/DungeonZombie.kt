@@ -3,8 +3,8 @@ package dev.peopo.devroomdemo.dungeon.enemy
 
 import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent
 import dev.peopo.devroomdemo.dungeon.Dungeon
-import dev.peopo.devroomdemo.dungeon.Dungeon.Companion.dungeon
 import dev.peopo.devroomdemo.dungeon.NoValidPositionException
+import dev.peopo.devroomdemo.dungeon.dungeon
 import dev.peopo.devroomdemo.dungeon.getMobSpawnPosition
 import dev.peopo.devroomdemo.sql.getDungeonStats
 import dev.peopo.devroomdemo.util.plugin
@@ -36,10 +36,11 @@ class DungeonZombie(val player: Player) : Zombie(EntityType.ZOMBIE, (player.loca
 		init {
 			pluginManager.registerEvents(this, plugin)
 		}
+
 		@EventHandler
 		fun onTargetChange(event: EntityTargetLivingEntityEvent) {
 			val entity = (event.entity as? CraftZombie)?.handle as? DungeonZombie ?: return
-			if(event.target != entity.player as LivingEntity) event.isCancelled = true
+			if (event.target != entity.player as LivingEntity) event.isCancelled = true
 		}
 
 		@EventHandler

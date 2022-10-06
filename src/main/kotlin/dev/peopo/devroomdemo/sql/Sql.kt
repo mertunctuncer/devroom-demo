@@ -37,7 +37,7 @@ fun Player.fetchDungeonData() {
 		val where = SQLPairList()
 		where.add("uuid", uniqueId.toString())
 		val results = sqlTable.fetch<PlayerData>(where)
-		val data = if(results.isEmpty()) {
+		val data = if (results.isEmpty()) {
 			val playerData = PlayerData()
 			playerData.uuid = uniqueId.toString()
 			sqlTable.insert(playerData)

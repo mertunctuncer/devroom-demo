@@ -6,21 +6,21 @@ import java.util.*
 
 class PreDungeonCache(val player: Player) {
 
-	val inventory = mutableMapOf<Int, ItemStack>()
-	val health = player.health
-	val exp = player.exp
-	val hunger = player.foodLevel
-	val location = player.location
+	private val inventory = mutableMapOf<Int, ItemStack>()
+	private val health = player.health
+	private val exp = player.exp
+	private val hunger = player.foodLevel
+	private val location = player.location
 
 	init {
-		for(slot in 0..40) {
+		for (slot in 0..40) {
 			player.inventory.getItem(slot)?.let { inventory[slot] = it }
 		}
 	}
 
 	fun apply() {
 		player.inventory.clear()
-		for(itemPair in inventory) {
+		for (itemPair in inventory) {
 			player.inventory.setItem(itemPair.key, itemPair.value)
 		}
 		player.health = health

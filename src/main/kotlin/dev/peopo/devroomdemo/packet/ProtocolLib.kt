@@ -32,7 +32,7 @@ private val ENTITY_PACKETS = arrayOf(
 	PacketType.Play.Server.BLOCK_BREAK_ANIMATION // ANYTHING ELSE?
 )
 
-val protocolManager : ProtocolManager by lazy { ProtocolLibrary.getProtocolManager() }
+val protocolManager: ProtocolManager by lazy { ProtocolLibrary.getProtocolManager() }
 
 fun registerPacketListeners() {
 	protocolManager.addPacketListener(object : PacketAdapter(plugin, ENTITY_PACKETS.asIterable()) {
