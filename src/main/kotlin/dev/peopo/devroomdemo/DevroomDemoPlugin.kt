@@ -19,9 +19,11 @@ class DevroomDemoPlugin : JavaPlugin() {
 		registerPacketListeners()
 		registerSQLListeners()
 		registerCommandListeners()
+		logger.info("Plugin enabled.")
 	}
 
 	override fun onDisable() {
 		hikariCP.close()
+		logger.info("Plugin disabled.")
 	}
 }
