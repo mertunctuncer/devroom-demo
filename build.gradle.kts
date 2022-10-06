@@ -100,7 +100,7 @@ bukkit {
     description = project.description
     apiVersion = "1.18"
     authors = listOf("Aki..#0001")
-    depend = listOf()
+    depend = listOf("ProtocolLib")
     commands {
         register("start")
         register("stats")
